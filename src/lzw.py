@@ -18,12 +18,12 @@ def main(argv):
     # COMPRESS
     outdata = []
     s = ""
-    for c in line:
+    for c in indata:
         ss = s + c
         if ss in ldict:
             s = ss
         else:
-            #print "Encoding %d" % (ldict[s])
+            print "Encoding %s %d" % (s, (ldict[s]))
             outdata.append(ldict[s])
             ldict[ss] = len(ldict)
             s = c
@@ -37,14 +37,14 @@ def main(argv):
 
     fdata = []
     prevcode = outdata[0]
-    fdata.append(rdict[int(prevcode)])
+    fdata.append(rdict[prevcode])
     for c in outdata[1:]:
         currcode = c
-        entry = rdict[int(currcode)]
+        entry = rdict[currcode]
         fdata.append(entry)
         ch = entry[0]
         
-        prev_entry = rdict[int(prevcode)] + ch
+        prev_entry = rdict[prevcode] + ch
         rdict[len(rdict)] = prev_entry
 
         prevcode = currcode
